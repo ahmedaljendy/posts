@@ -19,7 +19,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = [
-            'id' => 1, 
+            'id' => $id, 
             'title' => 'laravel',
             'description' => 'some description',
             'posted_by' => [
@@ -48,22 +48,51 @@ class PostController extends Controller
         // $data = request()->all();
         // $title = $data['title'];
         // $description = $data['description'];
-
+        $id=request()->id;
         $title = request()->title;
         $description = request()->description;
 
         // dd( $title, $description);
 
-        return to_route('posts.show', 1);
+        return to_route('posts.show', $id);
         // return to_route('posts.index');
     }
-    public function edit()
+    public function edit($id)
     {
-
-        return view('posts.edit');
+        $post = [
+            'id' => $id, 
+            'title' => 'laravel',
+            'description' => 'some description',
+            'posted_by' => [
+                'name' => 'ahmed',
+                'email' => 'test@gmail.com',
+                'created_at' => 'Thursday 25th of December 1975 02:15:16 PM'
+            ],
+            'created_at' => '2025-03-08 12:47:00',
+        ];
+        return view('posts.edit',['post' => $post]);
     }
-    public function update()
+    public function update($id)
     {
-        // return view('posts.update');
+        $data = request()->all();
+        $post = [
+            'id' => $id, 
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'posted_by' => [
+                'name' => $data['description']['name'],
+                'email' => 'test@gmail.com',
+                'created_at' => 'Thursday 25th of December 1975 02:15:16 PM'
+            ],
+            'created_at' => '2025-03-08 12:47:00',
+        ];
+        return view('posts.show', ['post' => $post]);
+                
+               
+    }
+    public function destroy($id)
+    {
+        // dd($id);
+        return to_route('posts.index',$id);
     }
 }
