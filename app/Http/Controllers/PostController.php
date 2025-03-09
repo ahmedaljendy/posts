@@ -24,7 +24,7 @@ class PostController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('posts.create');
+        return view('posts.create', ['users' => $users]);
     }
 
     public function store()
@@ -51,39 +51,29 @@ class PostController extends Controller
     }
     public function edit($id)
     {
-        $post = [
-            'id' => $id, 
-            'title' => 'laravel',
-            'description' => 'some description',
-            'posted_by' => [
-                'name' => 'ahmed',
-                'email' => 'test@gmail.com',
-                'created_at' => 'Thursday 25th of December 1975 02:15:16 PM'
-            ],
-            'created_at' => '2025-03-08 12:47:00',
-        ];
-        return view('posts.edit',['post' => $post]);
+        $post = Post::find($id);
+        $users = User::all();
+        return view('posts.edit',['post' => $post, 'users' => $users]);
     }
     public function update($id)
     {
         $data = request()->all();
-        $post = [
-            'id' => $id, 
+        $post = Post::find($id); // Find the post by its ID
+
+        $post->update([
             'title' => $data['title'],
             'description' => $data['description'],
-            'posted_by' => [
-                'name' => $data['description']['name'],
-                'email' => 'test@gmail.com',
-                'created_at' => 'Thursday 25th of December 1975 02:15:16 PM'
-            ],
-            'created_at' => '2025-03-08 12:47:00',
-        ];
+            'user_id' => $data['post_creator'],
+        ]);
+
         return view('posts.show', ['post' => $post]);
                 
                
     }
     public function destroy($id)
     {
+        $post = Post::find($id);
+        $post->delete();
         // dd($id);
         return to_route('posts.index',$id);
     }
