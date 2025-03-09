@@ -41,11 +41,28 @@
             <div class="px-4 py-4">
                 <!-- Display Comments -->
                 @foreach ($post->comments as $comment)
-                    <div class="mb-4 p-3 border rounded bg-gray-50">
+                    <div class="mb-2 p-3 border rounded bg-gray-50">
                         {{-- <h3 class="text-sm font-medium text-gray-700">{{ $comment->user->name }}:</h3> --}}
                         <p class="text-gray-600">{{ $comment->content }}</p>
                         <span class="text-xs text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
+                        <div class="flex justify-evenly">
+                        <button
+                            type="submit"
+                            class="px-4 py-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hover:cursor-pointer"
+                            name="edit"
+                        >
+                            Update
+                        </button>
+                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="inline-block px-4 py-1 text-xs font-medium text-white bg-red-600 rounded hover:bg-red-700" >
+                                    Delete
+                                </button>
+                            </form>
                     </div>
+                    </div>
+                    
                 @endforeach
 
                 <!-- Add New Comment Form -->
