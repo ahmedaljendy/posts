@@ -1,40 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\models\Post;
+use App\models\User;
 
 use Illuminate\Http\Request;
-
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = [
-            ['id' => 1, 'title' => 'laravel', 'posted_by' => 'ahmed', 'created_at' => '2025-03-08 12:47:00'],
-            ['id' => 2, 'title' => 'HTML', 'posted_by' => 'mohamed', 'created_at' => '2025-04-10 11:00:00'],
-        ];
+        $posts = Post::all();
 
         return view('posts.index',['posts' => $posts]);
     }
 
     public function show($id)
     {
-        $post = [
-            'id' => $id, 
-            'title' => 'laravel',
-            'description' => 'some description',
-            'posted_by' => [
-                'name' => 'ahmed',
-                'email' => 'test@gmail.com',
-                'created_at' => 'Thursday 25th of December 1975 02:15:16 PM'
-            ],
-            'created_at' => '2025-03-08 12:47:00',
-        ];
+        $post = Post::find($id);
         // dd($id);
         return view('posts.show', ['post' => $post]);
     }
 
     public function create()
     {
+        $users = User::all();
         return view('posts.create');
     }
 
@@ -45,16 +34,19 @@ class PostController extends Controller
         //3- store the data in database
         //4- redirection
 
-        // $data = request()->all();
-        // $title = $data['title'];
-        // $description = $data['description'];
-        $id=request()->id;
+        
         $title = request()->title;
         $description = request()->description;
+        $postCreator = request()->post_creator;
 
         // dd( $title, $description);
+        $post = Post::create([
+            'title' => $title,
+            'description' => $description,
+            'user_id' => $postCreator,
+        ]);
 
-        return to_route('posts.show', $id);
+        return to_route('posts.show', $post->id);
         // return to_route('posts.index');
     }
     public function edit($id)
