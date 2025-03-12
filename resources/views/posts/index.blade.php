@@ -7,6 +7,7 @@
 
     <!-- Table Component -->
     <div class="mt-6 rounded-lg border border-gray-200">
+
         <div class="overflow-x-auto rounded-t-lg">
             <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead class="text-left">
@@ -35,6 +36,7 @@
                                     Delete
                                 </button>
                             </form>
+                            <view-ajax />
                         </td>
                     </tr>
                 @endforeach
@@ -80,5 +82,7 @@
                 </li>
             </ol>
         </div>
+    
+
     </div>
 </x-layout> 
