@@ -6,6 +6,17 @@
             </div>
 
             <div class="px-6 py-4">
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-md mb-4">
+                        <ul class="list-none p-0 m-0">
+                            @foreach ($errors->all() as $error)
+                                <li class="py-1 flex items-center">
+                                    <span class="mr-2 text-red-500">⚠️</span> {{ $error }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="POST" action="/posts">
                     @csrf
                     <!-- Title Input -->
