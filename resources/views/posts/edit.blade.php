@@ -1,11 +1,23 @@
-<x-layout :title="'Create Post'">
+<x-layout :title="'Update Post'">
     <div class="max-w-3xl mx-auto">
         <div class="bg-white rounded-lg shadow overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h2 class="text-xl font-semibold text-gray-800">Create New Post</h2>
+                <h2 class="text-xl font-semibold text-gray-800">Update Post</h2>
             </div>
+            
 
             <div class="px-6 py-4">
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-md mb-4">
+                        <ul class="list-none p-0 m-0">
+                            @foreach ($errors->all() as $error)
+                                <li class="py-1 flex items-center">
+                                    <span class="mr-2 text-red-500">⚠️</span> {{ $error }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('posts.update', $post->id) }}">
                     @csrf
                     @method('PUT');
