@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\StorePostRequest;
 use App\models\Post;
 use App\models\User;
 
@@ -28,24 +30,21 @@ class PostController extends Controller
         return view('posts.create', ['users' => $users]);
     }
 
-    public function store()
+    public function store(StorePostRequest $request) 
     {
         //1- get the form submission data into variable
         //2- data validation
         //3- store the data in database
         //4- redirection
 
-        
-        $title = request()->title;
-        $description = request()->description;
-        $postCreator = request()->post_creator;
-
+        $validated = $request->validated();
+ 
         // dd( $title, $description);
         $post = Post::create([
-            'title' => $title,
-            'description' => $description,
-            'user_id' => $postCreator,
-        ]);
+        'title' => $validated['title'],
+        'description' => $validated['description'],
+        'user_id' => $validated['post_creator'],
+    ]);
 
         return to_route('posts.show', $post->id);
         // return to_route('posts.index');
@@ -56,19 +55,21 @@ class PostController extends Controller
         $users = User::all();
         return view('posts.edit',['post' => $post, 'users' => $users]);
     }
-    public function update($id)
+    public function update(StorePostRequest $request,Post $post)
     {
-        $data = request()->all();
-        $post = Post::find($id); // Find the post by its ID
+        $validated = $request->validated();
+        
+        // $post = Post::find($id); // Find the post by its ID
+
+        
 
         $post->update([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'user_id' => $data['post_creator'],
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'user_id' => $validated['post_creator'],
         ]);
-
-        return view('posts.show', ['post' => $post]);
-                
+        return redirect()->route('posts.show', $post->id);
+        // return view('posts.show', ['post' => $post]);
                
     }
     public function destroy($id)
