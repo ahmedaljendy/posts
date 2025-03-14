@@ -76,6 +76,14 @@
                         Submit
                     </button>
                 </form>
+<div class="mt-4 flex flex-col items-center">
+    <p class="text-gray-700 font-semibold mb-2">Current Image</p>
+    <div class="relative w-40 h-40 border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+        <img src="{{ Storage::url($post->photo) }}" 
+             alt="Uploaded Image" 
+             class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+    </div>
+</div>
             </div>
         </div>
         <!-- Back Button -->
