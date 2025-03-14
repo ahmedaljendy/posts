@@ -17,7 +17,7 @@
                         </ul>
                     </div>
                 @endif
-                <form method="POST" action="/posts">
+                <form method="POST" action="/posts" enctype="multipart/form-data">
                     @csrf
                     <!-- Title Input -->
                     <div class="mb-4">
@@ -55,6 +55,14 @@
                         </select>
                     </div>
                     
+                        {{-- <label for="photo" 
+    class="flex items-center justify-center w-50 px-4 py-2 text-white bg-blue-600 rounded-md cursor-pointer hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+    Upload Photo
+</label>
+<input id="photo" type="file" name="photo" class="hidden"> --}}
+                        <input type="file" name="photo"
+    class="block w-50 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:bg-gray-100">
+
                     <!-- Submit Button -->
                     <div class="flex justify-end">
                         <button
