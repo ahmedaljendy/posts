@@ -14,6 +14,8 @@
                     <tr>
                         <th class="px-4 py-2 font-medium whitespace-nowrap text-gray-900">#</th>
                         <th class="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Title</th>
+                        <th class="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Slug</th>
+                        
                         <th class="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Posted By</th>
                         <th class="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Created At</th>
                         <th class="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Actions</th>
@@ -24,6 +26,7 @@
                     <tr>
                         <td class="px-4 py-2 font-medium whitespace-nowrap text-gray-900">{{ $post->id }}</td>
                         <td class="px-4 py-2 whitespace-nowrap text-gray-700">{{$post->title}}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-gray-700">{{ $post->slug }}</td>
                         <td class="px-4 py-2 whitespace-nowrap text-gray-700">{{  $post->user ? $post->user->name : 'No User Found' }}</td>
                         <td class="px-4 py-2 whitespace-nowrap text-gray-700">{{ $post->created_at }}</td>
                         <td class="px-4 py-2 whitespace-nowrap text-gray-700 space-x-2">
@@ -36,15 +39,18 @@
                                     Delete
                                 </button>
                             </form>
-                            <view-ajax />
+                            <view-ajax :id="{{ $post->id }}" />
                         </td>
+                        
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
 
+        <post-modal />
         <!-- Pagination -->
+        
         <div class="rounded-b-lg border-t border-gray-200 px-4 py-2">
             <ol class="flex justify-end gap-1 text-xs font-medium">
                 @if ($posts->onFirstPage())
@@ -80,6 +86,7 @@
                         </svg>
                     </a>
                 </li>
+                
             </ol>
         </div>
     
