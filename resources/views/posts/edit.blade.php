@@ -18,7 +18,7 @@
                         </ul>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('posts.update', $post->id) }}">
+                <form method="POST" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT');
                     <!-- Title Input -->
@@ -60,7 +60,15 @@
                             @endforeach
                         </select>
                     </div>
-                    
+<div class="mt-4 flex flex-col items-center">
+    <p class="text-gray-700 font-semibold mb-2">Current Image</p>
+    <div class="relative w-40 h-40 border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+        <img src="{{ Storage::url($post->photo) }}" 
+             alt="Uploaded Image" 
+             class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+    </div>
+</div>                    <input type="file" name="photo"
+                        class="block w-50 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:bg-gray-100 my-3">
                     <!-- Submit Button -->
                     <div class="flex justify-end">
                         <button
