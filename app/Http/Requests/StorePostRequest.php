@@ -30,6 +30,7 @@ class StorePostRequest extends FormRequest
             ] ,
             'description' => 'required|max:255',
             'post_creator' => 'required',
+            'photo' => 'nullable|image|mimes:png,jpg|max:4096',
         ];
     }
     public function messages(): array
@@ -39,6 +40,9 @@ class StorePostRequest extends FormRequest
             'title.required' => 'Please enter the title',
             'description.required' => 'Please enter the description',
             'post_creator.required' => 'Please select the post creator',
+            'photo.image' => 'The file must be an image',
+            'photo.mimes' => 'The image must be of type png or jpg',
+            'photo.max' => 'The image must be less than 4MB',
         ];
     }
 }
